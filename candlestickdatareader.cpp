@@ -1,4 +1,5 @@
 #include <iostream>
+#include <QDateTime>
 #include "candlestickdatareader.h"
 
 CandlestickDataReader::CandlestickDataReader(QIODevice *device) : QTextStream(device)
@@ -37,7 +38,7 @@ QCandlestickSet *CandlestickDataReader::readCandlestickSet()
 	candlestickSet->setLow(low);
 	candlestickSet->setClose(close);
 
-
+	std::cout << QDateTime::currentMSecsSinceEpoch() << std::endl;
 
 	return candlestickSet;
 }
