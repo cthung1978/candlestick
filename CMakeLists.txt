@@ -24,6 +24,8 @@ set(PROJECT_SOURCES
 	main.cpp
 	candlestickdatareader.cpp
 	candlestickdatareader.h
+	analysis.cpp
+	analysis.h
 )
 
 add_executable(charts ${PROJECT_SOURCES})
