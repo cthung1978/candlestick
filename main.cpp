@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 		QCandlestickSet *set = dataReader.readCandlestickSet();
 		if (set) {
 			acmeSeries->append(set);
-			categories << QDateTime::fromMSecsSinceEpoch(set->timestamp()).toString("dd");
+			categories << QDateTime::fromMSecsSinceEpoch(set->timestamp()).toString("MM/dd");
 		}
 	}
 
@@ -45,13 +45,15 @@ int main(int argc, char *argv[])
 
 	AnalysisLine(1436313600000, 124.0, 20.);
 	QLineSeries *seriesL = new QLineSeries();
-	seriesL->append(1435708800000, 126.9);
-	seriesL->append(1436400000000, 123.85);
+	seriesL->append(1435708800000., 126.9);
+	seriesL->append(1436400000000., 123.85);
 	chart->addSeries(seriesL);
 
 	chart->createDefaultAxes();
-	QDateTimeAxis *axisX = qobject_cast<QDateTimeAxis *>(chart->axes(Qt::Horizontal).at(0));
-	// axisX->setCategories(categories);
+	// QDateTimeAxis *axisX = qobject_cast<QDateTimeAxis *>(chart->axes(Qt::Horizontal).at(0));
+	QBarCategoryAxis *axisX = qobject_cast<QBarCategoryAxis *>(chart->axes(Qt::Horizontal).at(0));
+	axisX->setCategories(categories);
+	
 	QValueAxis *axisY = qobject_cast<QValueAxis *>(chart->axes(Qt::Vertical).at(0));
 	axisY->setMax(axisY->max() * 1.01);
 	axisY->setMin(axisY->min() * 0.99);
