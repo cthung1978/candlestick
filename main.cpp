@@ -1,5 +1,5 @@
-
 #include <QtCharts/QBarCategoryAxis>
+// #include <QtCharts/QCategoryAxis>
 #include <QtCharts/QDateTimeAxis>
 #include <QtCharts/QCandlestickSeries>
 #include <QtCharts/QChartView>
@@ -45,18 +45,23 @@ int main(int argc, char *argv[])
 
 	AnalysisLine(1436313600000, 124.0, 20.);
 	QLineSeries *seriesL = new QLineSeries();
-	seriesL->append(1435708800000., 126.9);
-	seriesL->append(1436400000000., 123.85);
+	// seriesL->append(1435708800000., 126.94);
+	// seriesL->append(1438300800000., 122.64);
+	seriesL->append(0., 126.94);
+	seriesL->append(20., 122.64);
 	chart->addSeries(seriesL);
 
 	chart->createDefaultAxes();
 	// QDateTimeAxis *axisX = qobject_cast<QDateTimeAxis *>(chart->axes(Qt::Horizontal).at(0));
 	QBarCategoryAxis *axisX = qobject_cast<QBarCategoryAxis *>(chart->axes(Qt::Horizontal).at(0));
-	axisX->setCategories(categories);
-	
+	// axisX->setCategories(categories);
+	seriesL->attachAxis(axisX);
+
 	QValueAxis *axisY = qobject_cast<QValueAxis *>(chart->axes(Qt::Vertical).at(0));
 	axisY->setMax(axisY->max() * 1.01);
 	axisY->setMin(axisY->min() * 0.99);
+	// chart->axisX(seriesL)->setVisible(false);
+	seriesL->attachAxis(axisY);
 
 	chart->legend()->setVisible(true);
 	chart->legend()->setAlignment(Qt::AlignBottom);
