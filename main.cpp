@@ -41,12 +41,9 @@ int main(int argc, char *argv[])
 	QChart *chart = new QChart();
 	chart->addSeries(acmeSeries);
 	chart->setTitle("Acme Ltd Historical Data (July 2015)");
-	// chart->setAnimationOptions(QChart::SeriesAnimations);
 
 	AnalysisLine(1436313600000, 124.0, 20.);
 	QLineSeries *seriesL = new QLineSeries();
-	// seriesL->append(1435708800000., 126.94);
-	// seriesL->append(1438300800000., 122.64);
 	seriesL->append(0., 126.94);
 	seriesL->append(20., 122.64);
 	chart->addSeries(seriesL);

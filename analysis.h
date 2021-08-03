@@ -5,15 +5,15 @@ class AnalysisLine
 {
 public:
 	explicit AnalysisLine();
-	explicit AnalysisLine(long long, double, double);
+	explicit AnalysisLine(double, double, double);
 	~AnalysisLine();
 
-	int setLine(long long, double, double); // set the line information with (time, value, slope), where the type of time is qint64(long long)
-	int setOririnalPoint(long long, double);
-	int setSlope(long long, double);
+	int setLine(double, double, double); // set the line information with (time, value, slope), where the type of time is qint64(long long)
+	int setOririnalPoint(double, double);
+	int setSlope(double, double);
 
 private:
-	long long oTime;
+	double oTimeStamp;
 	double oValue;
 	double slope;
 };
