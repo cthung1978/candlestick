@@ -9,6 +9,8 @@
 #include <QtWidgets/QMainWindow>
 #include <QLineSeries>
 
+#include <iostream>
+
 #include "candlestickdatareader.h"
 #include "analysis.h"
 QT_CHARTS_USE_NAMESPACE
@@ -32,17 +34,27 @@ int main(int argc, char *argv[])
 	while (!dataReader.atEnd())
 	{
 		QCandlestickSet *set = dataReader.readCandlestickSet();
+		std::cout << set << std::endl;
 		if (set) {
 			acmeSeries->append(set);
-			categories << QDateTime::fromMSecsSinceEpoch(set->timestamp()).toString("MM/dd");
+			categories << QDateTime::fromMSecsSinceEpoch(set->timestamp()).toString("yyyy-MM-dd HH:mm");
 		}
 	}
+
+	// QList<QCandlestickSet *>::iterator it;
+	// for (it = acmeSeries->sets().begin(); it != acmeSeries->sets().end(); it++)
+	// {
+	// 	std::cout << (*it)->open() << std::endl;
+	// }
 
 	QChart *chart = new QChart();
 	chart->addSeries(acmeSeries);
 	chart->setTitle("Acme Ltd Historical Data (July 2015)");
 
 	AnalysisLine(1436313600000, 124.0, 20.);
+	// Find the first and last timestamp
+	QList<QCandlestickSet *>::iterator it_begin, it_end;
+
 	QLineSeries *seriesL = new QLineSeries();
 	seriesL->append(0., 126.94);
 	seriesL->append(20., 122.64);
@@ -51,7 +63,10 @@ int main(int argc, char *argv[])
 	chart->createDefaultAxes();
 	// QDateTimeAxis *axisX = qobject_cast<QDateTimeAxis *>(chart->axes(Qt::Horizontal).at(0));
 	QBarCategoryAxis *axisX = qobject_cast<QBarCategoryAxis *>(chart->axes(Qt::Horizontal).at(0));
-	// axisX->setCategories(categories);
+	axisX->setCategories(categories);
+	std::cout << axisX->count() << std::endl;
+	// axisX->setMax("07/17");
+	// axisX->setMin("07/06");
 	seriesL->attachAxis(axisX);
 
 	QValueAxis *axisY = qobject_cast<QValueAxis *>(chart->axes(Qt::Vertical).at(0));
